@@ -49,18 +49,49 @@ let addItemButton = "";
 
  function crearbotones(event) {
   // Realiza las acciones de los botones subir, borrar y bajar para los elementos de la lista
- }
+  var objeto = event.target.parentElement;
+  var opcion = event.target.className;
 
+  switch (opcion) {
+    case "borrar":
+      objeto.remove();
+      break;
+    case "bajar":
+      (objeto.nextElementSibling !== null)? objeto.before(objeto.nextElementSibling): objeto;
+      break;
+    case "subir":
+      (objeto.previousElementSibling !== null)? objeto.after(objeto.previousElementSibling): objeto;
+      break;
+    default:
+      break;
+  }
+ }
  function MostrarOcultarLista(){
   // Muestra u oculta la información de las cosas que son violeta (listDiv)
+  if(document.getElementById("toggleList").innerHTML=="Ocultar Lista"){
+    listDiv.style.display="none";
+    document.getElementById("toggleList").innerHTML="Mostrar Lista"
+  }else{
+    listDiv.style.display="block"
+    document.getElementById("toggleList").innerHTML="Ocultar Lista"
  }
+}
  function CambiarTextoLista(){
   //Modifica  el texto de la lista (descriptionP) con el valor del input (descriptionInput).
   // Inicialmente COSAS QUE SON VIOLETA
+  var textoInput,contenidoNuevo;
+  textoInput = document.getElementsByClassName("description")[1].value;
+  contenidoNuevo = document.getElementsByClassName("description")[0].innerHTML=textoInput;
  }
  function AñadirElemento(){
   //Añade un nuevo elemento a la lista con el valor del input (addItemInput). 
   //Recuerda que el elemento tendrá que tener sus botones de subir, bajar y borrar.
+  var texto,li,botonSubir;
+  texto = document.getElementsByClassName("addItemInput")[0].value;
+  li = document.createElement("li");
+  botonSubir = document.createElement("button");
+  li.innerHTML=texto;
+  document.getElementById("lista").appendChild(li).appendChild(attachListItemButtons(li));
  }
 
 
